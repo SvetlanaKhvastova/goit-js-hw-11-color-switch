@@ -1,5 +1,5 @@
 import ref from './refs.js';
-console.log(ref);
+const { btnStart, btnStop, body } = ref;
 
 const colors = [
   '#FFFFFF',
@@ -14,3 +14,30 @@ const colors = [
 const randomIntegerFromInterval = (min, max) => {
   return Math.floor(Math.random() * (max - min + 1) + min);
 };
+
+const timer = {
+  intervalId: null,
+  isActive: false,
+
+  start() {
+    // чтобы кнопка Start была не активна после первого нажатия
+    if (this.isActive) {
+      return;
+    }
+
+    this.isActive = true;
+    this.intervalId = setInterval(() => {
+      body.style.backgroundColor =
+        colors[randomIntegerFromInterval(0, colors.length - 1)];
+    }, 1000);
+  },
+
+  stop() {
+    clearInterval(this.intervalId);
+    this.intervalId = null;
+    this.isActive = false;
+  },
+};
+
+btnStart.addEventListener('click', timer.start.bind(timer));
+btnStop.addEventListener('click', timer.stop.bind(timer));
