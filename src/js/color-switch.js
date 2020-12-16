@@ -30,12 +30,24 @@ const timer = {
       body.style.backgroundColor =
         colors[randomIntegerFromInterval(0, colors.length - 1)];
     }, 1000);
+
+    this.addDisabled(btnStart);
   },
 
   stop() {
     clearInterval(this.intervalId);
     this.intervalId = null;
     this.isActive = false;
+
+    this.removeDisabled(btnStart);
+  },
+
+  addDisabled(el) {
+    el.setAttribute('disabled', '');
+  },
+
+  removeDisabled(el) {
+    el.removeAttribute('disabled');
   },
 };
 
